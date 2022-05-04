@@ -32,7 +32,6 @@ class UserController {
         const { id } = req.params;
         const changedUser = await userService.change(id, email, age);
         return res.json(changedUser);
-
     }
 
     public async deleteUser(req:Request, res:Response):Promise<Response<DeleteResult>> {
