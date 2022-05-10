@@ -1,6 +1,8 @@
 import { Response, Request } from 'express';
+import { UpdateResult } from 'typeorm';
 import { COOKIE } from '../constans/cookie';
 import { authService } from '../srvices/authService';
+import { tokenService } from '../srvices/tokeService';
 
 class AuthController {
     public async registration(req:Request, res:Response) {
@@ -17,7 +19,12 @@ class AuthController {
         console.log(req.get('cookie'));
         console.log(req.get('AUTHORIZATION'));
         return res.json('ok');
+    }
 
+    public async deleteUserTokenPair(req:Request, res:Response):Promise<Response<UpdateResult>> {
+        const { id } = req.params;
+        const deleteUser = await tokenService.deleteUserTokenPair(+id);
+        return res.json(deleteUser);
     }
 }
 
